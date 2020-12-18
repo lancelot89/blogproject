@@ -1,13 +1,20 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.db import IntegrityError
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.models import User
+from django.http import HttpResponseRedirect
 from .forms import SignupForm, PostForm, EditForm
 from .models import Post, Category
 
 # Create your views here.
+
+
+def LikeView(request, pk):
+    post = get_object_or_404(Post, id=request.POST.get('post_id'))
+    post.likes.add(request.user)
+    return HttpResponseRedirect(reverse('detail', args=[str(pk)]))
 
 
 class PostListView(ListView):
@@ -20,6 +27,7 @@ class PostListView(ListView):
         cat_menu = Category.objects.all()
         context = super(PostListView, self).get_context_data(*args, **kwargs)
         context["cat_menu"] = cat_menu
+
         return context
 
 
@@ -40,7 +48,10 @@ class PostDetailView(DetailView):
     def get_context_data(self, *args, **kwargs):
         cat_menu = Category.objects.all()
         context = super(PostDetailView, self).get_context_data(*args, **kwargs)
+        stuff = get_object_or_404(Post, id=self.kwargs['pk'])
+        total_likes = stuff.total_likes()
         context["cat_menu"] = cat_menu
+        context["total_likes"] = total_likes
         return context
 
 
