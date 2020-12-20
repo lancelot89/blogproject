@@ -22,7 +22,7 @@
 <br />
 <hr>
 <br>
-{{ post.body|safe }}<br>
+{{ post.body|safe}}<br>
 <br>
 
 
@@ -32,6 +32,21 @@
 <hr>
 <form action="{% url 'like_post' post.id %}" method="POST">
 {% csrf_token %}
-<button type="submit", name="post_id", value="{{ post.id }}", class="btn btn-primary">like - ({{ total_likes }})</button>
+
+{% if user.is_authenticated %}
+{% if liked %}
+<button type="submit", name="post_id", 
+value="{{ post.id }}", class="btn btn-danger">unlike - ({{ total_likes }})</button>
+
+{% else %}
+<button type="submit", name="post_id", 
+value="{{ post.id }}", class="btn btn-primary">like - ({{ total_likes }})</button>
+
+{% endif %}
+{% else %}
+<a class="btn btn-primary" href="{% url 'login' %}">login</a>
+{% endif %}
 </form>
+
+いいねの数-{{ total_likes }}
 {% endblock content %}

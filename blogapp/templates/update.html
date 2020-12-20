@@ -7,11 +7,17 @@
 <div class="form-group">
     <form action="" method="post">
         {% csrf_token %}
+        {{ form.media }}
         {{ form.as_p }}
 
         <button class="btn btn-primary">Update</button>
     </form>
 </div>
+
+<script>
+    var name = "{{ user.id }}";
+    document.getElementById("elder").value = name;
+</script>
 {% else %}
 <h1>本人でなければ編集できません</h1>
 {% endif %}

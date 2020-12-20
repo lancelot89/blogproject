@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'blogapp.apps.BlogappConfig',
     'members',
+    'ckeditor',
 ]
 
 MIDDLEWARE = [
@@ -122,8 +123,4 @@ USE_TZ = True
 LOGIN_REDIRECT_URL = 'list'
 LOGOUT_REDIRECT_URL = 'list'
 
-STATIC_URL = '/sta/'
-
-STATIC_ROOT = BASE_DIR / 'staticfiles'
-
-STATICFILES_DIRS = [str(BASE_DIR / 'static')]
+STATIC_URL = '/static/'
