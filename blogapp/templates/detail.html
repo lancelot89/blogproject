@@ -57,7 +57,7 @@ value="{{ post.id }}", class="btn btn-primary">like - ({{ total_likes }})</butto
 
 <div class="card mb-3">
   <div class="row no-gutters">
-    <div class="col-md-2">
+    <div class="col-md-3">
     {% if post.author.profile.profile_img %}
       <img src="{{ post.author.profile.profile_img.url }}" class="card-img" alt="...">
     {% else %}
@@ -68,8 +68,9 @@ value="{{ post.id }}", class="btn btn-primary">like - ({{ total_likes }})</butto
       <div class="card-body">
         <h5 class="card-title">{{ post.author }} </h5>
                 <p class="card-text text-muted">
+            <a href="{% url 'show_profile_page' post.author.profile.id %}">Profile Page</a>
             {% if post.author.profile.website_url %}
-            <a href="{{ post.author.profile.website_url}}">Website</a>  
+            | <a href="{{ post.author.profile.website_url}}">Website</a>  
             {% endif %}
 
             {% if post.author.profile.facebook_url %}

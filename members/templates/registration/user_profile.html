@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<h1>User Profile</h1>
+
+{{ page_user }}
+
+<div class="card mb-3">
+  <div class="row no-gutters">
+    <div class="col-md-3">
+    {% if page_user.profile_img %}
+      <img src="{{ page_user.profile_img.url }}" class="card-img" alt="...">
+    {% else %}
+      <img src="{% static 'blog/images/3239_2.jpg'%}" class="card-img" alt="...">
+    {% endif %}
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title">{{ post.author }} </h5>
+                <p class="card-text text-muted">
+            <a href="{% url 'show_profile_page' page_user.id %}">Profile Page</a>
+            {% if page_user.website_url %}
+            | <a href="{{ page_user.website_url}}">Website</a>  
+            {% endif %}
+
+            {% if page_user.facebook_url %}
+            | <a href="{{ page_user.facebook_url}}">Facebook</a>  
+            {% endif %}
+
+            {% if page_user.twitter_url %}
+            | <a href="{{ page_user.twitter_url}}">Twitter</a> 
+            {% endif %}
+            
+            {% if page_user.instagram_url %}
+            | <a href="{{ page_user.instagram_url}}">Instagram</a>
+            {% endif %}
+        </p>
+        <p class="card-text">{{ page_user.bio}}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% endblock content %}

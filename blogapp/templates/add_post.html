@@ -2,6 +2,8 @@
 
 {% block content %}
 
+{% if user.is_authenticated %}
+
 <h1>Add Blog Post</h1>
 <div class="form-group">
     <form action="" method="post" enctype="multipart/form-data">
@@ -17,5 +19,11 @@
     var name = "{{ user.id }}";
     document.getElementById("elder").value = name;
 </script>
+
+{% else %}
+
+<h3>許可されていません</h3>
+
+{% endif %}
 
 {% endblock content %}
