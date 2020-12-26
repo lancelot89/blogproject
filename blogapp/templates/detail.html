@@ -54,25 +54,8 @@ value="{{ post.id }}", class="btn btn-primary">like - ({{ total_likes }})</butto
 
 いいねの数-{{ total_likes }}
 
-<br><br>
-<hr>
-<h2>Comments</h2>
-
-{% if not post.comments.all %}
-  No Comments <a href="#">Add</a>
-
-{% else %}
-{% for comment in post.comments.all %}
-
-  <strong>{{ comment.name }} - {{ comment.date_add }}</strong>
-  <br>
-  {{ comment.body }}
-  <br><br>
-
-{% endfor %}
-{% endif %}
   <hr>
-<br><br>
+<br>
 <div class="card mb-3">
   <div class="row no-gutters">
     <div class="col-md-3">
@@ -108,7 +91,25 @@ value="{{ post.id }}", class="btn btn-primary">like - ({{ total_likes }})</butto
     </div>
   </div>
 </div>
-<br><br>
+
+<hr>
+<h2>Comments</h2>
+
+{% if not post.comments.all %}
+<a href="{% url 'add_comment' post.pk %}">Add Comment</a>
+
+{% else %}
+<a href="{% url 'add_comment' post.pk %}">Add Comment</a>
+<br>
+{% for comment in post.comments.all %}
+
+  <strong>{{ comment.name }} - {{ comment.date_add }}</strong>
+  <br>
+  {{ comment.body }}
+  <br><br>
+
+{% endfor %}
+{% endif %}
 
 
 {% endblock content %}

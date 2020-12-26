@@ -5,8 +5,8 @@ from django.db import IntegrityError
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
-from .forms import SignupForm, PostForm, EditForm
-from .models import Post, Category
+from .forms import SignupForm, PostForm, EditForm, CommentPostForm
+from .models import Post, Category, Comment
 
 # Create your views here.
 
@@ -71,6 +71,18 @@ class AddPostView(CreateView):
     form_class = PostForm
     template_name = "add_post.html"
     # fields = ('title', 'body')
+
+
+class AddCommentView(CreateView):
+    model = Comment
+    form_class = CommentPostForm
+    template_name = "add_comment.html"
+
+    def form_valid(self, form):
+        form.instance.post_id = self.kwargs['pk']
+        return super().form_valid(form)
+
+    success_url = reverse_lazy('list')
 
 
 class AddCategoryView(CreateView):
